@@ -23,4 +23,4 @@ MIT [http://rem.mit-license.org](http://rem.mit-license.org)
 
 # Thanks
 
-This application is based on [madhums](https://github.com/madhums)' [Node Express Mongoose](https://github.com/madhums/node-express-mongoose)
+This application is based on [Madhusudhan Srinivasa < madhums8@gmail.com >](https://github.com/madhums)' [Node Express Mongoose](https://github.com/madhums/node-express-mongoose) 
