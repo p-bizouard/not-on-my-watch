@@ -69,7 +69,7 @@ module.exports = function (app, config, passport) {
     app.use(express.urlencoded());
     app.use(express.methodOverride())
 
-    app.sessionStore = new RedisStore({ url: config.REDIS_URL });
+    app.sessionStore = new RedisStore({ url: config.redis_url });
     //app.sessionStore = new express.session.MemoryStore();
 
     // express/mongo session storage
