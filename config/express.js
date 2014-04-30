@@ -27,7 +27,7 @@ module.exports = function (app, config, passport) {
     level: 9
   }))
 
-  app.use(express.favicon("public/favicon.ico"))
+  //app.use(express.favicon("public/favicon.ico"))
   app.use(express.static(config.root + '/public'))
 
   // Logging

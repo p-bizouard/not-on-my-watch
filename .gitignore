@@ -2,3 +2,5 @@ node_modules/
 .monitor
 Makefile
 .DS_Store
+config/config.js
+
