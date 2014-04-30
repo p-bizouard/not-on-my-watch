@@ -17,3 +17,10 @@ Copy and edit the config file
 
     */5 * * * * root wget -O /dev/null "http://host:3000/api/post/crawl"
 
+# License
+
+MIT [http://rem.mit-license.org](http://rem.mit-license.org)
+
+# Thanks
+
+This application is based on [madhums](https://github.com/madhums)' [Node Express Mongoose](https://github.com/madhums/node-express-mongoose)
