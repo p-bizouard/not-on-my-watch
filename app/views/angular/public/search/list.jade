@@ -1,0 +1,24 @@
+
+h1.page-header
+  | Watch list
+  a.pull-right.btn.btn-primary(ui-sref="search.create")
+    span.glyphicon.glyphicon-plus
+    | 
+    | Create a new watch
+    .clearfix
+
+.panel.panel-default(ng-class="{'panel-warning': search.favorite}",ng-repeat="search in searches")
+  .panel-heading
+    big
+      a.pull-left(ui-sref="search.detail({id:search._id})") {{search.title}}
+    span.label.label-success.pull-right(ng-if="search.posts.length - search.posts_read.length > 0")
+      i.glyphicon.glyphicon-screenshot
+      | 
+      | {{search.posts.length - search.posts_read.length}} unread
+    span.label.label-warning.pull-right(ng-if="search.posts_favorite.length > 0")
+      i.glyphicon.glyphicon-star
+      | 
+      | {{search.posts_favorite.length}} fav
+    .clearfix
+  .panel-body {{search.filter}} -- {{search.is_alerted}} {{search.last_alerted}}
+

@@ -1,0 +1,57 @@
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+body {
+  padding-top: 60px;
+}
+
+a {
+  cursor: pointer;
+}
+.js-nodisplay {
+  display: none;
+}
+
+.show-hide-appear.ng-hide-remove, .show-hide-appear.ng-hide-add  {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+
+  /* remember to add this */
+  display:block!important;
+  opacity:1;
+}
+
+.show-hide-appear.ng-hide {
+  opacity:0;
+}
+
+.alert {
+  min-height: 52px;
+}
+
+.nodisplay, .nav > li.nodisplay {
+  display: none;
+}
+
+h1 .pull-right, h2 .pull-right, .panel-heading .pull-right {
+  margin-left:10px;
+}
+
+a.halfshow {
+  opacity:0.5;
+}
+.pointer {
+  cursor:pointer;
+}
+
+.search-detail .panel-heading a span {
+  margin-left:10px;
+  font-size:70%;
+  color:#333;
+}
+
+.search-detail .panel-heading a small {
+  margin-left:10px;
+  font-size:70%;
+}

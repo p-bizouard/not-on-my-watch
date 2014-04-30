@@ -1,0 +1,17 @@
+.nav.navbar.navbar-default.navbar-fixed-top(role='navigation',ng-controller="headerCtrl")
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(ui-sref="index") Not on my watch
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav(ng-init="isAuthenticated=#{req.isAuthenticated()}")
+        li.ng-hide(ng-class="{active: isActive('^search')}", ng-show="isAuthenticated")
+          a(ui-sref="search", title="My watches") My watches
+        li.ng-hide(ng-class="{active: isActive('profile')}", ng-show="isAuthenticated")
+          a(ui-sref="profile", title="Profile") Profile
+        li.ng-hide(ng-show="isAuthenticated")
+          a(href="/logout", title="logout",target="_self") Logout

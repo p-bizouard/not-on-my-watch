@@ -1,0 +1,67 @@
+
+h1
+  span(ng-if="search._id") Edit this watch
+  span(ng-if="!search._id") Create a new watch
+
+  span.pull-right.btn(ng-class="{'btn-danger' : hoverDelete}",ng-mouseenter="hoverDelete = true", ng-mouseleave="hoverDelete = false", ng-click="deleteSearch()",ng-if="search._id")
+    span.glyphicon.glyphicon-trash
+    | 
+    | Delete
+    .clearfix
+
+  a.pull-right.btn.btn-default(ui-sref="search")
+    span.glyphicon.glyphicon-chevron-left
+    | 
+    | Back
+.row
+  .span7
+    form(name="createForm",ng-submit="save()",novalidate)
+
+      .alert.show-hide-appear.ng-hide(ng-class="{'alert-danger':messageGlobal.type == 'error', 'alert-success':messageGlobal.type == 'success'}",ng-hide="!messageGlobal.message",ng-init="messageGlobal = {message : undefined, type : 'error'}") {{messageGlobal.message}}
+
+      input(type="hidden", name="_csrf", ng-model="_csrf",ng-init="_csrf = '#{csrf_token}'")
+      input(type="hidden", name="_id",ng-model="search._id",ng-if="search._id")
+
+      .form-group(ng-class="{ 'has-error' : createForm.title.$invalid && !createForm.title.$pristine }")
+        label.control-label(for='title') Watch title
+        input.form-control#title.input-xlarge(type='text', name="title", placeholder='Node.js',ng-model="search.title", required)
+        p.help-block(ng-show="createForm.title.$invalid && !createForm.title.$pristine") A title is required
+
+      .form-group
+        label.control-label(for='email_alert') Email notification
+        select.form-control#email_alert.input-xlarge(name="email_alert", ng-model="search.email_alert",ng-required)
+          option(value='no',ng-selected="search.email_alert != 'yes'") No
+          option(value='yes',ng-selected="search.email_alert == 'yes'") Yes
+
+      .form-group(ng-class="{ 'has-error' : createForm.filter.$invalid && !createForm.filter.$pristine }")
+        label.control-label(for='filter') Keywords
+        input.form-control#filter.input-xlarge(type='text', name="filter",ng-model="search.filter",placeholder='(Node.js OR Node OR Node js)', required,ng-keyup="check_regex()")
+        p.help-block(ng-show="createForm.filter.$invalid && !createForm.filter.$pristine") This field is mendatory
+
+      .form-group(ng-class="{ 'has-error' : test_regex_onerror, 'has-success' : !test_regex_onerror && !createForm.filter.$pristine }")
+        label.control-label(for='test_regex') Keywords test zone
+        textarea.form-control#test_regex.input-xlarge(rows="4",name="test_regex",ng-model="search.test_regex",ng-keyup="check_regex()")
+      .form-group
+        p Exemple :
+          ul
+            li 
+              You can use reserved keywords : "(", ")", "AND", "OR"
+            li 
+              b PHP AND MySQL
+              |  Will match only topics containing both "PHP" and "MySQL"
+            li 
+              b PHP AND (Node OR Node.js OR Node js) AND MySQL
+              |  Will match only topics containing both "PHP", "MySQL", and one of the following (Node, Node.js, Node js)
+            li 
+              b ((MongoDB is powerful) OR (MongoDB is nosql) OR (MongoDB is Web scale)) AND doc
+              |  Will match only topics containing "MongoDB is" followed directly by "powerful", "nosql" or "Web scale"; and the term "doc" anywhere in the text
+            li 
+              b ((Node) OR (Node.js) OR (Node js) AND MongoDB
+              |  Woops, there is a typo. Don't forget parenthesis
+            li 
+              b (database OR databases OR databaz) AND (mongodb OR mongo OR mongobdd)
+              |  I'm not smart and I don't plurialize for you. And don't forget everyone can't write a perfect english.
+      .form-actions
+        button.btn.btn-primary(type='submit', ng-disabled="createForm.$invalid",) Submit
+        a.btn(ui-sref="search" title="cancel") Cancel
+

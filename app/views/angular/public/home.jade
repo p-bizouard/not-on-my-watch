@@ -1,0 +1,82 @@
+.jumbotron
+  h1 Not on My Watch
+  p Log-in, create a search, and wait for new content update on your favorite website
+
+div(ng-show="!isAuthenticated")
+  center
+    h1 Login
+  .col-sm-8
+    #auth_login(ng-show="formSigninData.login_state == 'signin' || formSigninData.login_state == 'reset'")
+      form.form-horizontal(name="signin",ng-submit="submitSignin()", novalidate)
+        input(type='hidden', name='_csrf', value="#{csrf_token}",ng-model="formSigninData._csrf", ng-init="formSigninData._csrf='#{csrf_token}'")
+        input(type='hidden', name='login_state', value="{{formSigninData.login_state}}",ng-model="formSigninData.login_state", ng-init="formSigninData.login_state='signin'")
+
+        .alert.col-sm-offset-3.col-sm-9.show-hide-appear.ng-hide(ng-class="{'alert-danger':signInMessageType == 'error', 'alert-success':signInMessageType == 'success'}",ng-hide="!signInMessage",ng-init="signInMessage = false;signInMessageType = 'error'") {{signInMessage}}
+
+        .form-group(ng-class="{ 'has-error' : signin.email.$invalid && !signin.email.$pristine}")
+          label.col-sm-3.control-label(for='signin_email') Email
+          .col-sm-9
+            input#signin_email.form-control(type="email", name="email", placeholder='Email',ng-model="formSigninData.email",required)
+            p.help-block(ng-show="(signin.email.$invalid && !signin.email.$pristine)") Enter a valid email
+
+        .form-group(ng-if="formSigninData.login_state == 'signin'", ng-class="{ 'has-error' : signin.password.$invalid && !signin.password.$pristine }")
+          label.col-sm-3.control-label(for='signin_password') Password
+          .col-sm-9
+            input#signin_password.form-control(type='password', name="password", placeholder='Password',ng-model="formSigninData.password",ng-attr-required="formSigninData.login_state == 'signin'")
+            p.help-block(ng-show="signin.password.$invalid && !signin.password.$pristine") Password is mendatory
+
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            span(ng-show="formSigninData.login_state == 'signin'")
+              input.btn.btn-primary(type='submit',ng-disabled="signin.$invalid",value="Log in")
+              | &nbsp; or &nbsp;
+              a.show-signup(ng-click="formSigninData.login_state = 'reset'") Reset my password
+              | &nbsp; or &nbsp;
+            span(ng-show="formSigninData.login_state == 'reset'")
+              input.btn.btn-primary(type='submit',ng-disabled="signin.$invalid",value="Reset") 
+              | &nbsp; or &nbsp;
+              a.show-signup(ng-click="formSigninData.login_state = 'signin'") Log in
+              | &nbsp; or &nbsp;
+            a.show-signup(ng-click="formSigninData.login_state = 'signup'") Create a new account
+
+
+
+    #auth_signup(ng-show="formSigninData.login_state == 'signup'")
+      form.form-horizontal(name="signup",ng-submit="submitSignup()", novalidate)
+        input(type='hidden', name='_csrf', value="#{csrf_token}",ng-model="formSignupData._csrf", ng-init="formSignupData._csrf='#{csrf_token}'")
+
+        .form-group(ng-class="{ 'has-error' : (signup.email.$invalid && !signup.email.$pristine) || errorEmailExists }")
+          label.col-sm-3.control-label(for='signup_email') Email
+          .col-sm-9
+            input#signup_email.form-control(type="email", name="email", placeholder='Email',ng-model="formSignupData.email",required)
+            p.help-block(ng-show="(signup.email.$invalid && !signup.email.$pristine)") Enter a valid email
+            p.help-block(ng-show="!signup.email.$invalid && !signup.email.$pristine && errorEmailExists") Email already exists
+
+        .form-group(ng-class="{ 'has-error' : signup.password.$invalid && !signup.password.$pristine }")
+          label.col-sm-3.control-label(for='signup_password') Password
+          .col-sm-9
+            input#signup_password.form-control(type='password', name="password", placeholder='Password',ng-model="formSignupData.password",required)
+            p.help-block(ng-show="signup.password.$invalid && !signup.password.$pristine") Password is mendatory
+
+        .form-group(ng-class="{ 'has-error' : signup.password_check.$invalid && !signup.password_check.$pristine }")
+          label.col-sm-3.control-label(for='signup_password_check') Password - check
+          .col-sm-9
+            input#signup_password_check.form-control(type='password', name="password_check", placeholder='Retype your password',ng-model="formSignupData.password_check",sameas="formSignupData.password",required)
+            p.help-block(ng-show="signup.password_check.$invalid && !signup.password_check.$pristine") Password check is invalid
+
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            input.btn.btn-primary(type='submit',ng-disabled="signup.$invalid",value="Sign up")
+            | &nbsp; or &nbsp;
+            a.show-login(ng-click="formSigninData.login_state = 'signin'") Log in
+
+  .col-sm-1
+    center
+      br
+      h2 OR
+      br
+
+  .col-sm-3
+    center
+      a(href="/auth/facebook",target="_self")
+        img(src="/img/facebook.png")

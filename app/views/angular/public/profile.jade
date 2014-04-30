@@ -1,0 +1,31 @@
+
+div(ng-show="isAuthenticated")
+  center
+    h1 Edit your profile
+    form.col-lg-8.col-lg-offset-2.form-horizontal(name="signup",ng-submit="submitProfile()", novalidate)
+      input(type='hidden', name='_csrf', value="#{csrf_token}",ng-model="formProfileData._csrf", ng-init="formProfileData._csrf='#{csrf_token}'")
+
+      .alert.col-sm-offset-3.col-sm-9.show-hide-appear.ng-hide(ng-class="{'alert-danger':signInMessageType == 'error', 'alert-success':signInMessageType == 'success'}",ng-hide="!signInMessage",ng-init="signInMessage = false;signInMessageType = 'error'") {{signInMessage}}
+
+      .form-group(ng-class="{ 'has-error' : (signup.email.$invalid && !signup.email.$pristine) || errorEmailExists }")
+        label.col-sm-3.control-label(for='signup_email') Email
+        .col-sm-9
+          input#signup_email.form-control(type="email", name="email", placeholder='Email',ng-model="formProfileData.email",ng-init="formProfileData.email=userEmail",required)
+          p.help-block(ng-show="(signup.email.$invalid && !signup.email.$pristine)") Enter a valid email
+          p.help-block(ng-show="!signup.email.$invalid && !signup.email.$pristine && errorEmailExists") Email already exists
+
+      .form-group(ng-class="{ 'has-error' : signup.password.$invalid && !signup.password.$pristine }")
+        label.col-sm-3.control-label(for='signup_password') Password
+        .col-sm-9
+          input#signup_password.form-control(type='password', name="password", placeholder='Password',ng-model="formProfileData.password")
+          p.help-block(ng-show="signup.password.$invalid && !signup.password.$pristine") Password is mendatory
+
+      .form-group(ng-class="{ 'has-error' : signup.password_check.$invalid && !signup.password_check.$pristine }")
+        label.col-sm-3.control-label(for='signup_password_check') Password - check
+        .col-sm-9
+          input#signup_password_check.form-control(type='password', name="password_check", placeholder='Retype your password',ng-model="formProfileData.password_check",sameas="formProfileData.password")
+          p.help-block(ng-show="signup.password_check.$invalid && !signup.password_check.$pristine") Password check is invalid
+
+      .form-group
+          input.btn.btn-primary(type='submit',ng-disabled="signup.$invalid",value="Edit")
+

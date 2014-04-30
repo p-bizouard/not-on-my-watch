@@ -1,0 +1,71 @@
+
+div.search-detail
+  h1.page-header
+    | {{search.title}}
+
+    span.pull-right.btn(ng-class="{'btn-primary' : hoverEdit}", ui-sref="search.edit({id:search._id})",ng-mouseenter="hoverEdit = true", ng-mouseleave="hoverEdit = false")
+      span.glyphicon.glyphicon-pencil
+      | 
+      | Edit
+
+    span.pull-right.btn(ng-class="{'btn-warning': search.favorite || hoverFav}",ng-click="switchSearchFav()", ng-mouseenter="hoverFav = true", ng-mouseleave="hoverFav = false")
+      span.glyphicon.glyphicon-star
+      | 
+      | Favorite
+
+    span.pull-right.btn(ng-if="search.posts_read.length != search.posts.length",ng-click="markAllRead()",ng-class="{'btn-primary' : hoverMarkAllRead}", ng-mouseenter="hoverMarkAllRead = true", ng-mouseleave="hoverMarkAllRead = false")
+      span.glyphicon.glyphicon-folder-open
+      | 
+      | Mark all as read
+
+  input(type="hidden", name="_csrf", ng-model="_csrf",ng-init="_csrf = '#{csrf_token}'")
+  .alert.show-hide-appear.ng-hide(ng-class="{'alert-danger':messageGlobal.type == 'error', 'alert-success':messageGlobal.type == 'success'}",ng-hide="!messageGlobal.message",ng-init="messageGlobal = {message : undefined, type : 'error'}") {{messageGlobal.message}}
+
+
+  div(ng-if="search.posts.length")
+    div(ng-if="search.posts_favorite.length")
+      h3 Favoris
+      .panel.panel-default(ng-repeat="post in search.posts | filter:filterFavs(1)")
+        .panel-heading
+          big
+            a.pull-left(ng-class="{'halfshow':search.posts_read.indexOf(post._id) != -1}",ng-click="showPost(post, $event)") {{post.title}}
+             small {{post.subtitle}}
+            span.pull-right.glyphicon.pointer(ng-click="switchPostFav(post)",ng-class="{'glyphicon-star':search.posts_favorite.indexOf(post._id) != -1, 'glyphicon-star-empty':search.posts_favorite.indexOf(post._id) == -1}")
+            | 
+          .clearfix
+        .panel-body.nodisplay(ng-bind-html="post.body")
+
+    h3 List
+
+
+    ul.pagination(ng-if="pagination.length")
+      li(ng-class="{disabled: pagination.current == 0}")
+        a(ng-click="changePage(pagination.current - 1)") « Prev
+      li(ng-repeat="n in range(pagination.length) track by $index", ng-class="{active: $index == pagination.current}")
+        a(ng-bind="$index + 1", ng-click="pagination.current = $index") {{$index}}
+      li(ng-class="{disabled: pagination.current == pagination.length - 1}")
+        a(ng-click="changePage(pagination.current + 1)") Next »
+
+    .panel.panel-default(ng-repeat="post in search.posts | filter:filterFavs(0) | startFrom:pagination.current * pagination.limit | limitTo:pagination.limit")
+      .panel-heading
+        big
+          a.pull-left(ng-class="{'halfshow':search.posts_read.indexOf(post._id) != -1}",ng-click="showPost(post, $event)")
+            span {{post.createdAt | date:'dd/MM HH:mm'}} -
+            | 
+            | {{post.title}}
+            small {{post.subtitle}}
+          span.pull-right.glyphicon.pointer(ng-click="switchPostFav(post)",ng-class="{'glyphicon-star':search.posts_favorite.indexOf(post._id) != -1, 'glyphicon-star-empty':search.posts_favorite.indexOf(post._id) == -1}")
+        .clearfix
+      .panel-body.nodisplay(ng-bind-html="post.body")
+
+    ul.pagination
+      li(ng-class="{disabled: pagination.current == 0}")
+        a(ng-click="changePage(pagination.current - 1)") « Prev
+      li(ng-repeat="n in range(pagination.length) track by $index", ng-class="{active: $index == pagination.current}")
+        a(ng-bind="$index + 1", ng-click="pagination.current = $index") {{$index}}
+      li(ng-class="{disabled: pagination.current == pagination.length - 1}")
+        a(ng-click="changePage(pagination.current + 1)") Next »
+
+
+  div(ng-if="!search.posts.length") Your search - {{search.filter}} - did not match any documents.
+

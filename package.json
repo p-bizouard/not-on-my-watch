@@ -1,0 +1,50 @@
+{
+  "name": "not-on-my-watch",
+  "description": "Open source web crawler built with Node.js, mongodb, angular and socket.io",
+  "keywords": [
+    "express",
+    "mongoose",
+    "mongodb",
+    "passport",
+    "angular",
+    "socket.io"
+  ],
+  "version": "1.0.0",
+  "private": false,
+  "author": " Paul Bizouard (https://github.com/p-bizouard)",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/p-bizouard/not-on-my-watch"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm":  "1.2.x"
+  },
+  "dependencies": {
+    "express": "3.5.1",
+    "jade": "latest",
+    "mongoose": "latest",
+    "winston": "latest",
+    "connect-flash": "latest",
+    "connect-mongo": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "passport-facebook": "latest",
+    "async": "latest",
+    "view-helpers": "latest",
+    "forever": "latest",
+    "aws-sdk": "latest",
+    "socket.io": "latest",
+    "underscore": "latest",
+    "jsdom": "latest",
+    "connect-redis": "latest",
+    "express-session": "latest",
+    "moment": "latest"
+  },
+  "devDependencies": {
+    "supertest": "latest",
+    "should": "latest",
+    "mocha": "latest",
+    "nodemon": "latest"
+  }
+}

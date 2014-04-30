@@ -1,0 +1,68 @@
+extends ../layouts/default
+
+block main
+  center
+    h1= title
+
+block content
+  a(ui-sref="route1") test
+
+  div(ui-view="authHomeContainer")
+
+  script(type="text/ng-template",id="route1.list.html")
+    h1 Test OK
+
+
+  script(type="text/ng-template",id="auth.html")
+    a(ui-sref="/.list") Test 2
+    .ui-view
+
+    .col-lg-6
+      #auth_login(ng-show="isOnLogin")
+        form.form-horizontal(action="/users/session", method="post", role="form")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+
+          p.col-sm-offset-2.error= message
+
+          .form-group
+            label.col-sm-2.control-label(for="email") Email
+            .col-sm-10
+              input#email.form-control(type="email", placeholder="Email", name="email")
+
+          .form-group
+            label.col-sm-2.control-label(for="password") Password
+            .col-sm-10
+              input#password.form-control(type="password", placeholder="Password", name="password")
+
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              button.btn.btn-primary(type='submit') Log in
+              | &nbsp; or &nbsp;
+              span.show-signup(ng-click="setToSignUp()") Sign up
+      #auth_signup.js-nodisplay(ng-hide="isOnLogin")
+        form.form-horizontal(action="/users", method="post", role="form")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+
+          .form-group
+            label.col-sm-2.control-label(for='email') Email
+            .col-sm-10
+              input#email.form-control(type='text', name="email", placeholder='Email')
+
+          .form-group
+            label.col-sm-2.control-label(for='password') Password
+            .col-sm-10
+              input#password.form-control(type='password', name="password", placeholder='Password')
+
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              button.btn.btn-primary(type='submit') Sign up
+              | &nbsp; or &nbsp;
+              span.show-login(ng-click="setToLogin()") Log in
+    .col-lg-2
+      br
+      h2 OR
+      br
+
+    .col-lg-4
+      a(href="/auth/facebook")
+        img(src="/img/facebook.png")
