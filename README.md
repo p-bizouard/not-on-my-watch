@@ -1,5 +1,4 @@
-# not-on-my-watch
-# ===============
+# Not on my watch
 
 Open source web crawler built with Node.js, mongodb and angular
 
@@ -13,4 +12,8 @@ Copy and edit the config file
 # Usage
 
     node server.js
+
+# Cron
+
+    */5 * * * * root wget -O /dev/null "http://host:3000/api/post/crawl"
 
