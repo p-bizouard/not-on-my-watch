@@ -12,7 +12,7 @@ var express = require('express')
   , session = require('express-session')
   , RedisStore = require('connect-redis')(session)
   , env = process.env.NODE_ENV || 'development'
-  , config = require('../../config/config')[env]
+  , config = require('../config/config')[env]
 
 
 module.exports = function (app, config, passport) {
