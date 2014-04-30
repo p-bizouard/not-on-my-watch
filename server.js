@@ -71,8 +71,6 @@ require('./config/routes')(app, passport)
 
       var io = require('socket.io').listen(server, { log: false });
       io.set('authorization', function (data, callback) {
-          console.log('-============- LOG IO =============-')
-          console.log(data.headers.cookie)
           if(!data.headers.cookie) {
               return callback('No cookie transmitted.', false);
           }
@@ -81,8 +79,6 @@ require('./config/routes')(app, passport)
           // Express cookieParser(req, res, next) is used initialy to parse data in "req.headers.cookie".
           // Here our cookies are stored in "data.headers.cookie", so we just pass "data" to the first argument of function
           app.cookieParser(data, {}, function(parseErr) {
-          console.log('ERR : ')
-          console.log(parseErr)
               if(parseErr) { return callback('Error parsing cookies.', false); }
 
               // Get the SID cookie
@@ -90,9 +86,16 @@ require('./config/routes')(app, passport)
                               (data.signedCookies && data.signedCookies['connect.sid']) ||
                               (data.cookies && data.cookies['connect.sid']);
 
+          console.log('sidCookie : ')
+          console.log(sidCookie)
               // Then we just need to load the session from the Express Session Store
               app.sessionStore.load(sidCookie, function(err, session) {
                   // And last, we check if the used has a valid session and if he is logged in
+          console.log('ERR : ')
+          console.log(err)
+          console.log(session)
+          console.log(session.passport )
+          console.log(session.passport.user )
                   if (err || !session || !session.passport || !session.passport.user ) {
                       callback('Not logged in.', false);
                   } else {
