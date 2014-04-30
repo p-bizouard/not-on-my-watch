@@ -38,8 +38,8 @@ module.exports = {
       name: 'Not on My Watch'
     },
     facebook: {
-      clientID: process.env.,  // Facebook application ID (PassportJs)
-      clientSecret: process.env.,
+      clientID: process.env.FB_KEY,  // Facebook application ID (PassportJs)
+      clientSecret: process.env.FB_SECRET,
       callbackURL: "http://" + process.env.HOST + "/auth/facebook/callback"
     },
     aws: {
