@@ -71,6 +71,8 @@ require('./config/routes')(app, passport)
 
       var io = require('socket.io').listen(server, { log: false });
       io.set('authorization', function (data, callback) {
+          console.log('-============- LOG IO =============-')
+          console.log(data.headers.cookie)
           if(!data.headers.cookie) {
               return callback('No cookie transmitted.', false);
           }
@@ -79,6 +81,8 @@ require('./config/routes')(app, passport)
           // Express cookieParser(req, res, next) is used initialy to parse data in "req.headers.cookie".
           // Here our cookies are stored in "data.headers.cookie", so we just pass "data" to the first argument of function
           app.cookieParser(data, {}, function(parseErr) {
+          console.log('ERR : ')
+          console.log(parseErr)
               if(parseErr) { return callback('Error parsing cookies.', false); }
 
               // Get the SID cookie
