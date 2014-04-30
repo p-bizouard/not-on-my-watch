@@ -37,7 +37,6 @@
     "socket.io": "latest",
     "underscore": "latest",
     "jsdom": "latest",
-    "connect-redis": "latest",
     "express-session": "latest",
     "moment": "latest"
   },
