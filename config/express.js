@@ -10,9 +10,10 @@ var express = require('express')
   , helpers = require('view-helpers')
   , pkg = require('../package.json')
   , session = require('express-session')
-  //, RedisStore = require('connect-redis')(session)
+  , RedisStore = require('connect-redis')(session)
+  , env = process.env.NODE_ENV || 'development'
+  , config = require('../../config/config')[env]
 
-var env = process.env.NODE_ENV || 'development'
 
 module.exports = function (app, config, passport) {
 
@@ -68,8 +69,8 @@ module.exports = function (app, config, passport) {
     app.use(express.urlencoded());
     app.use(express.methodOverride())
 
-    //app.sessionStore = new RedisStore();
-    app.sessionStore = new express.session.MemoryStore();
+    app.sessionStore = new RedisStore({ url: config.REDIS_URL });
+    //app.sessionStore = new express.session.MemoryStore();
 
     // express/mongo session storage
     app.use(express.session({

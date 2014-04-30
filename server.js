@@ -86,16 +86,9 @@ require('./config/routes')(app, passport)
                               (data.signedCookies && data.signedCookies['connect.sid']) ||
                               (data.cookies && data.cookies['connect.sid']);
 
-          console.log('sidCookie : ')
-          console.log(sidCookie)
               // Then we just need to load the session from the Express Session Store
               app.sessionStore.load(sidCookie, function(err, session) {
                   // And last, we check if the used has a valid session and if he is logged in
-          console.log('ERR : ')
-          console.log(err)
-          console.log(session)
-          console.log(session.passport )
-          console.log(session.passport.user )
                   if (err || !session || !session.passport || !session.passport.user ) {
                       callback('Not logged in.', false);
                   } else {

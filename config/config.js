@@ -5,6 +5,7 @@ var path = require('path')
 module.exports = {
   development: {
     db: process.env.MONGOHQ_URL,
+    redis_url: process.env.REDISTOGO_URL,
     root: rootPath,
     app: {
       name: 'Not on My Watch'
@@ -33,6 +34,7 @@ module.exports = {
   },
   production: {
     db: process.env.MONGOHQ_URL,
+    redis_url: process.env.REDISTOGO_URL,
     root: rootPath,
     app: {
       name: 'Not on My Watch'

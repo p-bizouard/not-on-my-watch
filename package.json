@@ -38,6 +38,7 @@
     "underscore": "latest",
     "jsdom": "latest",
     "express-session": "latest",
+    "connect-redis": "1.4.7",
     "moment": "latest"
   },
   "devDependencies": {

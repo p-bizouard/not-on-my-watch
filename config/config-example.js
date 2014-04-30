@@ -5,6 +5,7 @@ var path = require('path')
 module.exports = {
   development: {
     db: 'mongodb://localhost/not_on_my_watch',
+    redis_url: 'redis://localhost:6379/',
     root: rootPath,
     app: {
       name: 'Not on My Watch'
@@ -33,6 +34,7 @@ module.exports = {
   },
   production: {
     db: 'mongodb://localhost/' + process.env.DB_NAME,
+    redis_url: process.env.REDISTOGO_URL,
     root: rootPath,
     app: {
       name: 'Nodejs Express Mongoose Demo'
