@@ -24,6 +24,7 @@ module.exports = {
     host: process.env.HOST,
     crawl : {
       url: process.env.CRAWL_URL,
+      encoding: process.env.CRAWL_ENCODING,
       selector: process.env.CRAWL_SELECTOR,
       selector_title: process.env.CRAWL_SELECTOR_TITLE,
       selector_subtitle: process.env.CRAWL_SELECTOR_SUBTITLE, // optionnal
@@ -53,6 +54,7 @@ module.exports = {
     host: process.env.HOST,
     crawl : {
       url: process.env.CRAWL_URL,
+      encoding: process.env.CRAWL_ENCODING,
       selector: process.env.CRAWL_SELECTOR,
       selector_title: process.env.CRAWL_SELECTOR_TITLE,
       selector_subtitle: process.env.CRAWL_SELECTOR_SUBTITLE, // optionnal

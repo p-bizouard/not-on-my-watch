@@ -14,7 +14,7 @@ var mongoose = require('mongoose')
 
 exports.crawl = function (req, res) {
   jsdom.env({
-    encoding:'binary',
+    encoding:config.crawl.encoding,
     url: config.crawl.url,
     scripts: ["http://code.jquery.com/jquery-1.11.0.min.js"],
     done: function (errors, window) {

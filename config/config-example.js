@@ -24,6 +24,7 @@ module.exports = {
     host:'localhost:3000',
     crawl : {
       url:'http://korben.info/',
+      encoding: 'utf-8',
       selector:'div.post',
       selector_title:'h2 a',
       selector_subtitle:'', // optionnal
@@ -51,5 +52,15 @@ module.exports = {
     },
     mail_from:process.env.MAIL_FROM,
     host:process.env.HOST,
+    crawl : {
+      url:'http://korben.info/',
+      encoding: 'utf-8',
+      selector:'div.post',
+      selector_title:'h2 a',
+      selector_subtitle:'', // optionnal
+      selector_link:'h2 a',
+      selector_body:'div.post-content',
+      nb_per_page:8 
+    }
   },
 }

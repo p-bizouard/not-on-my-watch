@@ -8,7 +8,7 @@ var mongoose = require('mongoose')
   , config = require('../../config/config')[env]
   , Schema = mongoose.Schema
   , jsdom = require("jsdom")
-  ,  moment = require('moment')
+  , moment = require('moment')
   , AWS = require('aws-sdk')
 
   AWS.config.update(config.aws)
@@ -63,7 +63,7 @@ PostSchema.methods = {
 
     jsdom.env({
       url: url,
-      encoding:'binary',
+      encoding:config.crawl.encoding,
       scripts: ["http://code.jquery.com/jquery-1.11.0.min.js"],
       done: function (errors, window) {
         if (errors)
