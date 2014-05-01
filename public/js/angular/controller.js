@@ -110,7 +110,7 @@ app.controller('searchListCtrl', function($scope, $rootScope, $http, searchServi
   searchServices.startSocket(socket);
 });
 
-app.controller('searchDetailCtrl', function($scope, $rootScope, $http, $stateParams, searchServices, promiseDetail, socket) {
+app.controller('searchDetailCtrl', function($scope, $rootScope, $http, $stateParams, $sce, searchServices, promiseDetail, socket) {
 
   if (!promiseDetail)
     return ($rootScope.$state.go('search'));
@@ -195,7 +195,7 @@ app.controller('searchDetailCtrl', function($scope, $rootScope, $http, $statePar
         {
           // we set ie read localy
           var regex = new RegExp($scope.search.regex, "gi");
-          post.body = data.post.body.replace(regex, '<font color="red" size="5">$1</font>');
+          post.body = $sce.trustAsHtml(data.post.body.replace(regex, '<font color="red" size="5">$1</font>'));
 
           // but if it is not readed, we put it to the server
           if (data.is_read == false)
